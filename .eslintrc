@@ -1,9 +1,9 @@
 {
   "extends": [
+    "expo",
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@react-native/recommended"
   ],
-  "rules": {
-  }
+  "rules": {}
 }
