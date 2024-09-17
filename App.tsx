@@ -1,30 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
-import { styled, useColorScheme } from 'nativewind';
-import { Pressable, SafeAreaView, ScrollView, Text, View } from 'react-native';
-
-const StyledPressable = styled(Pressable);
+import { Text, View } from 'react-native';
+import ThemeToggle from './components/ui/theme-toggle';
 
 export default function App() {
-  const { colorScheme, toggleColorScheme } = useColorScheme();
-  const backgroundStyle = 'bg-neutral-100 dark:bg-zinc-900';
   return (
-    <SafeAreaView className={backgroundStyle}>
-      {/* <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        className={backgroundStyle}
-      > */}
-      <View className="h-full flex items-center justify-center p-6">
-        <StyledPressable onPress={toggleColorScheme}>
-          <Text
-            selectable={false}
-            className="text-2xl font-bold dark:text-white"
-          >
-            {`Try clicking me! ${colorScheme === 'dark' ? '🌙' : '🌞'}`}
-          </Text>
-        </StyledPressable>
-        <StatusBar style="auto" />
-      </View>
-      {/* </ScrollView> */}
-    </SafeAreaView>
+    <View className="flex-1 items-center justify-center bg-neutral-100 dark:bg-zinc-900 px-6">
+      <Text>Martes 17 de sep 2024</Text>
+      <Text>Lectura BíBLICA DEL DÍA</Text>
+      <Text className="text-2xl font-bold ">
+        Styling just works! 🎉
+        <ThemeToggle />
+      </Text>
+      <StatusBar style="auto" />
+    </View>
   );
 }
