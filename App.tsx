@@ -1,8 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, ScrollView, Text, View } from 'react-native';
+import { styled, useColorScheme } from 'nativewind';
+import { Pressable, SafeAreaView, ScrollView, Text, View } from 'react-native';
+
+const StyledPressable = styled(Pressable);
 
 export default function App() {
-  const backgroundStyle = 'bg-neutral-100 dark:bg-slate-900';
+  const { colorScheme, toggleColorScheme } = useColorScheme();
+  const backgroundStyle = 'bg-neutral-100 dark:bg-zinc-900';
   return (
     <SafeAreaView className={backgroundStyle}>
       {/* <ScrollView
@@ -10,9 +14,14 @@ export default function App() {
         className={backgroundStyle}
       > */}
       <View className="h-full flex items-center justify-center p-6">
-        <Text className="text-2xl font-bold dark:text-white">
-          Open up App.tsx to start working on your app!
-        </Text>
+        <StyledPressable onPress={toggleColorScheme}>
+          <Text
+            selectable={false}
+            className="text-2xl font-bold dark:text-white"
+          >
+            {`Try clicking me! ${colorScheme === 'dark' ? '🌙' : '🌞'}`}
+          </Text>
+        </StyledPressable>
         <StatusBar style="auto" />
       </View>
       {/* </ScrollView> */}
