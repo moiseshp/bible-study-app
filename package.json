@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "1.23.1",
     "@types/react": "~18.2.79",
     "clsx": "^2.1.1",
     "expo": "~51.0.28",
@@ -17,9 +18,9 @@
     "nativewind": "^2.0.11",
     "react": "18.2.0",
     "react-native": "0.74.5",
-    "tailwind-merge": "^2.5.2",
+    "react-native-safe-area-context": "^4.11.0",
     "react-native-svg": "15.2.0",
-    "@react-native-async-storage/async-storage": "1.23.1"
+    "tailwind-merge": "^2.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

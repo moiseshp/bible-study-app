@@ -31,6 +31,7 @@ const IconButton: React.FC<IconButtonProps> = ({
       onPress={onPress}
       className={cn(
         'flex items-center justify-center',
+        isRounded && 'rounded-full',
         SIZES.height[size],
         SIZES.width[size],
         BG_COLORS[color],
