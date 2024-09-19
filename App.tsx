@@ -10,14 +10,16 @@ import { useFontsLoader } from './hooks/use-fonts-leader';
 import { AppBar } from '@/components/ui/app-bar';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { Album as AlbumIcon } from '@/components/icons/album';
+import DevotionalCard from '@/views/home/devotional-card';
 import * as SplashScreen from 'expo-splash-screen';
+import readingPlan from '@/data/reading-plan.json';
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const isStorageLoaded = useStorageLoader();
   const isFontsLoaded = useFontsLoader();
-  const data = true;
+  const data = readingPlan.data;
   const isAppReady = isStorageLoaded && isFontsLoaded && data;
 
   const handleLayout = useCallback(async () => {
@@ -45,14 +47,14 @@ export default function App() {
           <Text className="mb-4 border-b border-t border-zinc-700 py-3 text-xl uppercase">
             Lectura BíBLICA DEL DÍA
           </Text>
-          <Text>Afacad Bold</Text>
-          <StatusBar style="auto" />
+          {data.devotional.title && <DevotionalCard data={data.devotional} />}
           <View className="py-6 flex flex-row justify-center w-full">
             <Signature />
           </View>
         </View>
         <BottomNavigation date="" onDateChange={() => console.info('')} />
       </View>
+      <StatusBar style="auto" />
     </SafeAreaView>
   );
 }
