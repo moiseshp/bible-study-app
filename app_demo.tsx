@@ -16,7 +16,7 @@ export default function App() {
         {/* <ThemeToggle /> */}
         {/* <Text
             selectable={false}
-            className="text-2xl font-bold dark:text-white"
+            className="text-2xl dark:text-white"
           >
             {`Try clicking me! ${colorScheme === 'dark' ? '🌙' : '🌞'}`}
           </Text> */}

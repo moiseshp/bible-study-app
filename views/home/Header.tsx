@@ -15,7 +15,7 @@ const Header = () => {
     >
       <View className="flex flex-row space-x-3">
         <AlbumIcon size="lg" />
-        <Text className="text-xl font-bold uppercase">
+        <Text className="text-xl uppercase font-afacad-bold">
           LA BIBLIA CRONOLÓGICA
         </Text>
       </View>

@@ -6,7 +6,14 @@ module.exports = {
     './views/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'afacad-regular': ['Afacad-Regular'],
+        'afacad-medium': ['Afacad-Medium'],
+        'afacad-semibold': ['Afacad-SemiBold'],
+        'afacad-bold': ['Afacad-Bold'],
+      },
+    },
   },
   plugins: [],
 };
