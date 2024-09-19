@@ -10,7 +10,7 @@ type TextProps = {
 const Text: React.FC<TextProps> = ({ className, children, ...props }) => {
   return (
     <NativeText
-      className={cn('font-afacad-bold', TEXT_COLORS.base, className)}
+      className={cn(TEXT_COLORS.base, 'font-afacad-regular', className)}
       {...props}
     >
       {children}
