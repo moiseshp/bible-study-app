@@ -1,8 +1,8 @@
-import IconButton from '@/components/ui/icon-button';
-import ArrowRightIcon from '@/components/icons/arrow-right';
-import ArrowLeftIcon from '@/components/icons/arrow-left';
+import { IconButton } from '@/components/ui/icon-button';
+import { ArrowRight as ArrowRightIcon } from '@/components/icons/arrow-right';
+import { ArrowLeft as ArrowLeftIcon } from '@/components/icons/arrow-left';
 import { View } from 'react-native';
-import Text from '@/components/ui/text';
+import { Text } from '@/components/ui/text';
 // import {
 //   addSkippingSunday,
 //   getDateFromString,
@@ -55,4 +55,4 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({
   );
 };
 
-export default BottomNavigation;
+export { BottomNavigation };

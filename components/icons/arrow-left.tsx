@@ -1,7 +1,7 @@
 import { Path } from 'react-native-svg';
 import { IconProps, SVGIcon } from './svg-icon';
 
-const ArrowLeft: React.FC<IconProps> = (props) => {
+export const ArrowLeft: React.FC<IconProps> = (props) => {
   return (
     <SVGIcon {...props}>
       <Path d="m12 19-7-7 7-7" />
@@ -9,5 +9,3 @@ const ArrowLeft: React.FC<IconProps> = (props) => {
     </SVGIcon>
   );
 };
-
-export default ArrowLeft;

@@ -1,7 +1,7 @@
 import { Circle, Path } from 'react-native-svg';
 import { IconProps, SVGIcon } from './svg-icon';
 
-const Sun: React.FC<IconProps> = (props) => {
+export const Sun: React.FC<IconProps> = (props) => {
   return (
     <SVGIcon {...props}>
       <Circle cx="12" cy="12" r="4" />
@@ -16,5 +16,3 @@ const Sun: React.FC<IconProps> = (props) => {
     </SVGIcon>
   );
 };
-
-export default Sun;

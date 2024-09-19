@@ -7,7 +7,11 @@ type TextProps = {
   children: React.ReactNode;
 } & NativeTextProps;
 
-const Text: React.FC<TextProps> = ({ className, children, ...props }) => {
+export const Text: React.FC<TextProps> = ({
+  className,
+  children,
+  ...props
+}) => {
   return (
     <NativeText
       className={cn(TEXT_COLORS.base, 'font-afacad-regular', className)}
@@ -17,5 +21,3 @@ const Text: React.FC<TextProps> = ({ className, children, ...props }) => {
     </NativeText>
   );
 };
-
-export default Text;

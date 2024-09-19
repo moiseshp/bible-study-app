@@ -1,6 +1,6 @@
-import Text from '@/components/ui/text';
+import { Text } from '@/components/ui/text';
 
-const Signature = () => {
+export const Signature = () => {
   return (
     <Text>
       {new Date().getFullYear()} &copy; Creado por {''}
@@ -14,5 +14,3 @@ const Signature = () => {
     </Text>
   );
 };
-
-export default Signature;

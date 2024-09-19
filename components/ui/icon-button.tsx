@@ -17,7 +17,7 @@ type IconButtonProps = {
   ColorProps &
   VariantProps;
 
-const IconButton: React.FC<IconButtonProps> = ({
+export const IconButton: React.FC<IconButtonProps> = ({
   icon,
   onPress,
   size = 'md',
@@ -43,5 +43,3 @@ const IconButton: React.FC<IconButtonProps> = ({
     </TouchableOpacity>
   );
 };
-
-export default IconButton;
