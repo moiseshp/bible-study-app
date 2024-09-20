@@ -34,3 +34,11 @@ export type SizeProps = {
 export type VariantProps = {
   variant?: 'solid' | 'outlined';
 };
+
+export function isDarkTheme(colorScheme: string) {
+  return colorScheme === 'dark';
+}
+
+export function isLightTheme(colorScheme: string) {
+  return colorScheme === 'light';
+}

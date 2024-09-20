@@ -1,7 +1,12 @@
 // Icons based https://lucide.dev/icons
 import { cn } from '@/libs/utils';
 import { Svg, SvgProps } from 'react-native-svg';
-import { ColorProps, TEXT_COLORS, SizeProps } from '@/components/theme';
+import {
+  ColorProps,
+  TEXT_COLORS,
+  SizeProps,
+  isDarkTheme,
+} from '@/components/theme';
 import { useColorScheme } from 'nativewind';
 
 export type IconProps = ColorProps & SizeProps & SvgProps;
@@ -23,12 +28,6 @@ export const SVGIcon: React.FC<SVGIconProps> = ({
     lg: 30,
     xl: 40,
   };
-  // const getColor = () => {
-  //   if (!color) {
-  //     return 'dark:text-zinc-100 text-zinc-900';
-  //   }
-  //   return TEXT_COLORS[color] || color;
-  // };
 
   return (
     <Svg
@@ -37,10 +36,9 @@ export const SVGIcon: React.FC<SVGIconProps> = ({
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={2}
-      stroke={colorScheme === 'dark' ? 'white' : 'black'}
+      stroke={isDarkTheme(colorScheme) ? 'rgb(244 244 245)' : 'rgb(24, 24, 27)'}
       height={SIZES[size]}
       width={SIZES[size]}
-      // className={cn(SIZES[size], SIZES[size])}
       {...props}
     >
       {children}
