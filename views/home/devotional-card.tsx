@@ -9,7 +9,7 @@ type DevotionalCardProps = {
   data: any;
 };
 
-const DevotionalCard: React.FC<DevotionalCardProps> = ({ data }) => {
+export const DevotionalCard: React.FC<DevotionalCardProps> = ({ data }) => {
   return (
     <View className="rounded-md bg-zinc-100 p-6 dark:bg-zinc-800">
       <View>
@@ -28,5 +28,3 @@ const DevotionalCard: React.FC<DevotionalCardProps> = ({ data }) => {
     </View>
   );
 };
-
-export default DevotionalCard;

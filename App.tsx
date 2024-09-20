@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { useStorageLoader } from '@/hooks/use-storage-loader';
 import { Text } from '@/components/ui/text';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -10,8 +10,10 @@ import { useFontsLoader } from './hooks/use-fonts-leader';
 import { AppBar } from '@/components/ui/app-bar';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { Album as AlbumIcon } from '@/components/icons/album';
-import DevotionalCard from '@/views/home/devotional-card';
+import { DevotionalCard } from '@/views/home/devotional-card';
 import * as SplashScreen from 'expo-splash-screen';
+import { BibleText } from '@/components/ui/bible-text';
+import { GradientBox } from '@/components/ui/gradient-box';
 import readingPlan from '@/data/reading-plan.json';
 
 SplashScreen.preventAutoHideAsync();
@@ -42,16 +44,27 @@ export default function App() {
           </View>
           <ThemeToggle />
         </AppBar>
-        <View className="px-6">
-          <Text className="mb-4">Martes 17 de sep 2024</Text>
-          <Text className="mb-4 border-b border-t border-zinc-700 py-3 text-xl uppercase">
-            Lectura BíBLICA DEL DÍA
-          </Text>
-          {data.devotional.title && <DevotionalCard data={data.devotional} />}
-          <View className="py-6 flex flex-row justify-center w-full">
-            <Signature />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View className="px-6">
+            <Text className="mb-4">Martes 17 de sep 2024</Text>
+            <View className="mb-6">
+              <Text className="mb-4 border-b border-t border-zinc-700 py-3 text-xl uppercase">
+                Lectura BÍBLICA DEL DÍA
+              </Text>
+              <View className="max-h-96 overflow-hidden">
+                {data.chapter.chapter && <BibleText data={data.chapter} />}
+              </View>
+              <GradientBox className="flex h-32 -mt-32 flex-row items-end p-6">
+                <Text>Text</Text>
+              </GradientBox>
+            </View>
+
+            {data.devotional.title && <DevotionalCard data={data.devotional} />}
+            <View className="my-6 flex flex-row justify-center w-full">
+              <Signature />
+            </View>
           </View>
-        </View>
+        </ScrollView>
         <BottomNavigation date="" onDateChange={() => console.info('')} />
       </View>
       <StatusBar style="auto" />
