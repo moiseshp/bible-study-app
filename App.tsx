@@ -15,6 +15,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { BibleText } from '@/components/ui/bible-text';
 import { GradientBox } from '@/components/ui/gradient-box';
 import readingPlan from '@/data/reading-plan.json';
+import { Button } from '@/components/ui/button';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -55,7 +56,7 @@ export default function App() {
                 {data.chapter.chapter && <BibleText data={data.chapter} />}
               </View>
               <GradientBox className="flex h-32 -mt-32 flex-row items-end p-6">
-                <Text>Text</Text>
+                <Button>Button</Button>
               </GradientBox>
             </View>
 
