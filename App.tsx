@@ -16,6 +16,7 @@ import { BibleText } from '@/components/ui/bible-text';
 import { GradientBox } from '@/components/ui/gradient-box';
 import readingPlan from '@/data/reading-plan.json';
 import { Button } from '@/components/ui/button';
+import { ArrowRight as ArrowRightIcon } from './components/icons/arrow-right';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -56,7 +57,12 @@ export default function App() {
                 {data.chapter.chapter && <BibleText data={data.chapter} />}
               </View>
               <GradientBox className="flex h-32 -mt-32 flex-row items-end p-6">
-                <Button>Button</Button>
+                <Button
+                  variant="outlined"
+                  iconRight={<ArrowRightIcon size="xs" />}
+                >
+                  Leer todo el texto
+                </Button>
               </GradientBox>
             </View>
 

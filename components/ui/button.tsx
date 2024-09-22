@@ -6,10 +6,12 @@ type ButtonProps = {
   variant?: 'text' | 'solid' | 'outlined';
   size?: 'xs' | 'md' | 'lg';
   className?: string;
-  children: React.ReactNode;
   isFullWidth?: boolean;
   isRounded?: boolean;
+  iconLeft?: React.ReactNode;
+  iconRight?: React.ReactNode;
   onPress?: () => void;
+  children: React.ReactNode;
 } & TouchableOpacityProps;
 
 export const Button: React.FC<ButtonProps> = ({
@@ -17,6 +19,8 @@ export const Button: React.FC<ButtonProps> = ({
   size = 'md',
   isFullWidth = false,
   isRounded = false,
+  iconLeft,
+  iconRight,
   children,
   onPress,
   ...props
@@ -24,34 +28,37 @@ export const Button: React.FC<ButtonProps> = ({
   const { style, disabled: isDisabled, ...rest } = props as any;
 
   const sizeStyles = {
-    xs: 'px-3 py-1 text-xs',
-    md: 'px-4 py-2 text-sm',
-    lg: 'px-6 py-2.5 text-md',
+    xs: 'px-3 h-10 text-xs',
+    md: 'px-4 h-12 text-md',
+    lg: 'px-6 h-16 text-md',
   };
 
-  const variantStyles = {
+  const variants = {
     text: 'border-none',
     solid:
-      'border-zinc-100 bg-zinc-100 dark:bg-zinc-800 dark:text-white dark:border-zinc-800',
-    outlined: 'bg-transparent border-zinc-800 dark:border-white',
+      'border border-zinc-100 bg-zinc-100 dark:bg-zinc-800 dark:text-white dark:border-zinc-800',
+    outlined: 'border bg-transparent border-zinc-800 dark:border-white',
   };
 
   return (
     <TouchableOpacity
       onPress={onPress}
       className={cn(
-        'flex items-center justify-center gap-x-2 rounded-md border font-semibold transition focus:outline-none',
+        ' justify-center rounded-md transition',
         sizeStyles[size],
-        variantStyles[variant],
-        isFullWidth && '!w-full',
-        isRounded && '!rounded-full',
+        variants[variant],
+        isFullWidth && 'w-full',
+        isRounded && 'rounded-full',
+        (iconLeft || iconRight) && 'flex flex-row items-center gap-x-2 ',
       )}
       disabled={isDisabled}
       activeOpacity={0.7}
       style={style}
       {...rest}
     >
+      {iconLeft && iconLeft}
       <Text>{children}</Text>
+      {iconRight && iconRight}
     </TouchableOpacity>
   );
 };
