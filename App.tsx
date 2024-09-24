@@ -16,7 +16,8 @@ import { BibleText } from '@/components/ui/bible-text';
 import { GradientBox } from '@/components/ui/gradient-box';
 import readingPlan from '@/data/reading-plan.json';
 import { Button } from '@/components/ui/button';
-import { ArrowRight as ArrowRightIcon } from './components/icons/arrow-right';
+import { ArrowRight as ArrowRightIcon } from '@/components/icons/arrow-right';
+import { AudioPlayer } from '@/components/ui/audio-player';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -53,6 +54,7 @@ export default function App() {
               <Text className="mb-4 border-b border-t border-zinc-700 py-3 text-xl uppercase">
                 Lectura BÍBLICA DEL DÍA
               </Text>
+              <AudioPlayer />
               <View className="max-h-96 overflow-hidden">
                 {data.chapter.chapter && <BibleText data={data.chapter} />}
               </View>
