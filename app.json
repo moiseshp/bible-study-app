@@ -3,6 +3,7 @@
     "name": "bible-study",
     "slug": "bible-study",
     "version": "1.0.0",
+    "scheme": "bible-study",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",

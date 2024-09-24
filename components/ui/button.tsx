@@ -28,9 +28,9 @@ export const Button: React.FC<ButtonProps> = ({
   const { style, disabled: isDisabled, ...rest } = props as any;
 
   const sizeStyles = {
-    xs: 'px-3 h-10 text-xs',
-    md: 'px-4 h-12 text-md',
-    lg: 'px-6 h-16 text-md',
+    xs: 'px-3 h-8 text-xs',
+    md: 'px-4 h-10 text-md',
+    lg: 'px-5 h-14 text-md',
   };
 
   const variants = {
@@ -44,12 +44,12 @@ export const Button: React.FC<ButtonProps> = ({
     <TouchableOpacity
       onPress={onPress}
       className={cn(
-        ' justify-center rounded-md transition',
+        'flex flex-row items-center justify-center rounded-md transition',
         sizeStyles[size],
         variants[variant],
         isFullWidth && 'w-full',
         isRounded && 'rounded-full',
-        (iconLeft || iconRight) && 'flex flex-row items-center gap-x-2 ',
+        (iconLeft || iconRight) && 'space-x-2',
       )}
       disabled={isDisabled}
       activeOpacity={0.7}

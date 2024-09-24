@@ -35,7 +35,7 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({
             // }
           />
           <View className="flex flex-1  items-center justify-center text-xl font-bold">
-            <Text className="first-letter:uppercase">
+            <Text className="">
               Jue. 19 de sep
               {/* {getDateFromString(date).format('ddd DD [de] MMM')} */}
             </Text>

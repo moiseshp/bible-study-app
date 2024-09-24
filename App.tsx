@@ -41,7 +41,7 @@ export default function App() {
           <View className="flex flex-row gap-x-3">
             <AlbumIcon size="lg" />
             <Text className="text-xl uppercase font-afacad-bold">
-              LA BIBLIA CRONOLÓGICA
+              Devocionales Lince
             </Text>
           </View>
           <ThemeToggle />
@@ -49,19 +49,19 @@ export default function App() {
         <ScrollView showsVerticalScrollIndicator={false}>
           <View className="px-6">
             <Text className="mb-4">Martes 17 de sep 2024</Text>
-            <View className="mb-6">
+            <View className="mb-8">
               <Text className="mb-4 border-b border-t border-zinc-700 py-3 text-xl uppercase">
                 Lectura BÍBLICA DEL DÍA
               </Text>
               <View className="max-h-96 overflow-hidden">
                 {data.chapter.chapter && <BibleText data={data.chapter} />}
               </View>
-              <GradientBox className="flex h-32 -mt-32 flex-row items-end p-6">
+              <GradientBox className="flex h-32 -mt-32 flex-row items-end">
                 <Button
                   variant="outlined"
                   iconRight={<ArrowRightIcon size="xs" />}
                 >
-                  Leer todo el texto
+                  Leer el texto completo
                 </Button>
               </GradientBox>
             </View>

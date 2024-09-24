@@ -18,7 +18,7 @@ export const ThemeToggle = () => {
     <IconButton
       isRounded
       variant="solid"
-      icon={colorScheme === 'dark' ? <MoonIcon /> : <SunIcon />}
+      icon={colorScheme === 'dark' ? <SunIcon /> : <MoonIcon />}
       onPress={handleTheme}
     />
   );
