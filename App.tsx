@@ -6,7 +6,7 @@ import { Text } from '@/components/ui/text';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { BottomNavigation } from '@/views/home/bottom-navigation';
 import { Signature } from '@/components/ui/signature';
-import { useFontsLoader } from './hooks/use-fonts-leader';
+import { useFontsLoader } from './hooks/use-fonts-loader';
 import { AppBar } from '@/components/ui/app-bar';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { Album as AlbumIcon } from '@/components/icons/album';
