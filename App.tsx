@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { ScrollView, View } from 'react-native';
 import { useStorageLoader } from '@/hooks/use-storage-loader';
@@ -17,13 +17,14 @@ import { GradientBox } from '@/components/ui/gradient-box';
 import readingPlan from '@/data/reading-plan.json';
 import { Button } from '@/components/ui/button';
 import { ArrowRight as ArrowRightIcon } from '@/components/icons/arrow-right';
-import { AudioPlayer } from '@/components/ui/audio-player';
+import Modal from 'react-native-modal';
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const isStorageLoaded = useStorageLoader();
   const isFontsLoaded = useFontsLoader();
+  const [isModalVisible, setModalVisible] = useState(false);
   const data = readingPlan.data;
   const isAppReady = isStorageLoaded && isFontsLoaded && data;
 
@@ -54,7 +55,7 @@ export default function App() {
               <Text className="mb-4 border-b border-t border-zinc-700 py-3 text-xl uppercase">
                 Lectura BÍBLICA DEL DÍA
               </Text>
-              <AudioPlayer />
+              {/* <AudioPlayer /> */}
               <View className="max-h-96 overflow-hidden">
                 {data.chapter.chapter && <BibleText data={data.chapter} />}
               </View>
@@ -62,6 +63,7 @@ export default function App() {
                 <Button
                   variant="outlined"
                   iconRight={<ArrowRightIcon size="xs" />}
+                  onPress={() => setModalVisible(true)}
                 >
                   Leer el texto completo
                 </Button>
@@ -76,6 +78,25 @@ export default function App() {
         </ScrollView>
         <BottomNavigation date="" onDateChange={() => console.info('')} />
       </View>
+      <Modal
+        isVisible={isModalVisible}
+        useNativeDriverForBackdrop={true}
+        onBackdropPress={() => setModalVisible(false)}
+        animationIn="slideInUp"
+        animationOut="slideOutDown"
+        swipeDirection="down"
+        statusBarTranslucent
+        coverScreen
+        className="m-0"
+      >
+        <View className="flex-1 items-center justify-center bg-white absolute h-full bottom-0 w-full rounded-xl">
+          <Text>Contenido del Modal</Text>
+          <Text>Contenido del Modal</Text>
+          <Text>Contenido del Modal</Text>
+          <Text>Contenido del Modal</Text>
+          <Button onPress={() => setModalVisible(false)}>Cerrar Modal</Button>
+        </View>
+      </Modal>
       <StatusBar style="auto" />
     </SafeAreaView>
   );

@@ -15,10 +15,24 @@ function formatTime(time: number) {
   return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 }
 
+const DEFAULT_SLIDER_PROPS = {
+  minimumValue: 0,
+  step: 1,
+  minimumTrackTintColor: '#3b82f6',
+  maximumTrackTintColor: '#6c6c74',
+  thumbTintColor: '#3b82f6',
+  style: {
+    marginLeft: -16,
+    marginRight: -8,
+    height: 26,
+  },
+};
+
 type AudioPlayerProps = {
   source: string;
   title?: string;
   mode?: 'classic' | 'mini';
+  onClick?: () => void;
   className?: string;
 };
 
@@ -32,7 +46,7 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const [position, setPosition] = useState(0);
   const [duration, setDuration] = useState(0);
-  const { style, ...rest } = props as any;
+  const { style, onClick } = props as any;
 
   const play = async () => await audio.playAsync();
   const pause = async () => await audio.pauseAsync();
@@ -54,6 +68,7 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
 
   const seekToPosition = async (value: number) => {
     await audio.setPositionAsync(value);
+    setPosition(value);
   };
 
   const resetAudio = async () => {
@@ -100,20 +115,28 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
   if (mode === 'mini') {
     return (
       <View
-        className="flex flex-row items-center justify-between border border-zinc-600 rounded-md pl-4 pt-1 pr-1 pb-1 space-x-2"
+        className="border border-zinc-600 rounded-md pl-4 pr-2 py-1"
         style={style}
       >
-        <Text className="font-afacad-bold">{title}</Text>
-        <Text>
-          {formatTime(position)} / {formatTime(duration)}
-        </Text>
-        <IconButton
-          variant="solid"
-          icon={isPlaying ? <PauseIcon /> : <PlayIcon />}
-          onPress={() => {
-            isPlaying ? pause() : play();
-            setIsPlaying(!isPlaying);
-          }}
+        <View className="flex flex-row items-center justify-between space-x-2">
+          <Text className="font-afacad-bold">{title}</Text>
+          <Text>
+            {formatTime(position)} / {formatTime(duration)}
+          </Text>
+          <IconButton
+            variant="solid"
+            icon={isPlaying ? <PauseIcon /> : <PlayIcon />}
+            onPress={() => {
+              isPlaying ? pause() : play();
+              setIsPlaying(!isPlaying);
+            }}
+          />
+        </View>
+        <Slider
+          {...DEFAULT_SLIDER_PROPS}
+          maximumValue={duration}
+          value={position}
+          onValueChange={seekToPosition}
         />
       </View>
     );
