@@ -1,61 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Button } from 'react-native';
+import { useState, useEffect } from 'react';
+import { View } from 'react-native';
 import { Audio } from 'expo-av';
 import Slider from '@react-native-community/slider';
+import { IconButton } from '@/components/ui/icon-button';
+import { Play as PlayIcon } from '@/components/icons/play';
+import { Pause as PauseIcon } from '@/components/icons/pause';
+import { Text } from '@/components/ui/text';
 
 function formatTime(time: number) {
-  const minutes = Math.floor(time / 60);
-  const seconds = Math.floor(time % 60);
+  if (!time) return '00:00';
+  const position = time / 1000;
+  const minutes = Math.floor(position / 60);
+  const seconds = Math.floor(position % 60);
   return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 }
 
-export const AudioPlayer = () => {
+type AudioPlayerProps = {
+  source: string;
+  title?: string;
+  mode?: 'classic' | 'mini';
+  className?: string;
+};
+
+export const AudioPlayer: React.FC<AudioPlayerProps> = ({
+  source,
+  title = 'Sample Audio',
+  mode = 'mini',
+  ...props
+}) => {
   const [audio, setAudio] = useState<any>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [duration, setDuration] = useState(0);
   const [position, setPosition] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const { style, ...rest } = props as any;
 
-  const loadAudio = async () => {
-    try {
-      const { sound, status }: any = await Audio.Sound.createAsync(
-        {
-          uri: 'https://samplelib.com/lib/preview/mp3/sample-12s.mp3',
-        },
-        { shouldPlay: false },
-      );
-      setAudio(sound);
-      setDuration(status.durationMillis);
-    } catch (error) {
-      console.error('An error occurred: ', error);
-    }
-  };
-
-  const play = async () => {
-    await audio.playAsync();
-    setIsPlaying(true);
-
-    // const interval = setInterval(async () => {
-    //   const status = await audio.getStatusAsync();
-    //   console.info(status.positionMillis);
-    //   if (status.isLoaded) {
-    //     setPosition(status.positionMillis);
-    //     console.info({ didJustFinish: status.didJustFinish });
-    //     if (status.didJustFinish) {
-    //       resetAudio();
-    //       clearInterval(interval);
-    //     }
-    //   }
-    // }, 1000);
-    // return () => clearInterval(interval);
-  };
-
-  const pause = async () => {
-    await audio.pauseAsync();
-    setIsPlaying(false);
-  };
+  const play = async () => await audio.playAsync();
+  const pause = async () => await audio.pauseAsync();
 
   const skipForward = async (seconds: number) => {
-    const status = await audio.getStatusAsync();
+    const status: any = await audio.getStatusAsync();
     const newPosition = Math.min(
       status.positionMillis + seconds * 1000,
       status.durationMillis,
@@ -74,60 +57,83 @@ export const AudioPlayer = () => {
   };
 
   const resetAudio = async () => {
-    console.info('resetAudio');
-    await audio.stopAsync(); // Detener el audio
-    await audio.setPositionAsync(0); // Reiniciar al inicio (posición 0)
-    setIsPlaying(false); // Actualizar el estado a "no está reproduciendo"
-    setPosition(0); // Reiniciar la posición en el estado del slider
+    await audio.stopAsync();
+    await audio.setPositionAsync(0);
+    setIsPlaying(false);
+    setPosition(0);
   };
 
   useEffect(() => {
-    loadAudio();
-    return () => {
-      loadAudio();
+    if (!source) return;
+
+    const loadAudio = async () => {
+      try {
+        const { sound, status }: any = await Audio.Sound.createAsync(
+          { uri: source },
+          { shouldPlay: false },
+        );
+        setAudio(sound);
+        setDuration(status.durationMillis);
+      } catch (error) {
+        console.error('An error occurred: ', error);
+      }
     };
+    loadAudio();
   }, []);
 
   useEffect(() => {
-    if (!audio) return;
-    audio.setOnPlaybackStatusUpdate((status: any) => {
+    if (!isPlaying) return;
+
+    const interval = setInterval(async () => {
+      const status = await audio.getStatusAsync();
       if (status.isLoaded) {
-        console.info({ isLoaded: status.isLoaded });
         setPosition(status.positionMillis);
-        console.info({ didJustFinish: status.didJustFinish });
-        if (status.didJustFinish) {
-          resetAudio(); // Hacer reset cuando el audio termine
+        if (status.positionMillis >= duration) {
+          resetAudio();
+          clearInterval(interval);
         }
       }
-    });
-  }, [position]);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [isPlaying]);
 
-  // useEffect(() => {
-  //   return audio ? () => audio.unloadAsync() : undefined;
-  // }, [audio]);
-
-  // useEffect(() => {
-  //   return sound
-  //     ? () => {
-  //         sound.unloadAsync();
-  //         setAudio(null);
-  //       }
-  //     : undefined;
-  // }, [sound]);
+  if (mode === 'mini') {
+    return (
+      <View
+        className="flex flex-row items-center justify-between border border-zinc-600 rounded-md pl-4 pt-1 pr-1 pb-1 space-x-2"
+        style={style}
+      >
+        <Text className="font-afacad-bold">{title}</Text>
+        <Text>
+          {formatTime(position)} / {formatTime(duration)}
+        </Text>
+        <IconButton
+          variant="solid"
+          icon={isPlaying ? <PauseIcon /> : <PlayIcon />}
+          onPress={() => {
+            isPlaying ? pause() : play();
+            setIsPlaying(!isPlaying);
+          }}
+        />
+      </View>
+    );
+  }
 
   return (
     <View>
-      <Button
-        title={isPlaying ? 'Pause' : 'Play'}
-        onPress={isPlaying ? pause : play}
-      />
-      <Button title="Skip Forward 10s" onPress={() => skipForward(10)} />
-      <Button title="Skip Backward 10s" onPress={() => skipBackward(10)} />
+      {/* <Button
+         title={isPlaying ? 'Pause' : 'Play'}
+         onPress={() => {
+           isPlaying ? pause() : play();
+           setIsPlaying(!isPlaying);
+         }}
+       />
+       <Button title="Skip Forward 10s" onPress={() => skipForward(10)} />
+       <Button title="Skip Backward 10s" onPress={() => skipBackward(10)} /> */}
       <Text>position: {formatTime(position / 1000)}</Text>
       <Text>Duration: {formatTime(duration / 1000)}</Text>
 
       <Slider
-        // style={{ width: 300, height: 40 }}
         minimumValue={0}
         maximumValue={duration}
         value={position}

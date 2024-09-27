@@ -1,7 +1,4 @@
-// import PlayIcon from '@/components/icons/Play';
-// import AudioPlayer from '@/components/ui/audio-player';
-// import Button from '@/components/ui/button';
-
+import { AudioPlayer } from '@/components/ui/audio-player';
 import { Text } from '@/components/ui/text';
 import { View } from 'react-native';
 
@@ -16,15 +13,14 @@ export const DevotionalCard: React.FC<DevotionalCardProps> = ({ data }) => {
         <Text className="text-xl uppercase font-afacad-bold">Devocional</Text>
         <Text className="text-lg">{data.title}</Text>
         <Text>{data.verse}</Text>
+        {data.audioSource && (
+          <AudioPlayer
+            source={data.audioSource}
+            title={data.author}
+            className="mt-3"
+          />
+        )}
       </View>
-      {/* {data.audioSource && (
-        <AudioPlayer
-          src={data.audioSource}
-          title={data.author}
-          mode="track"
-          className="mt-5"
-        />
-      )} */}
     </View>
   );
 };

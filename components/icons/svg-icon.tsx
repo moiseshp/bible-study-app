@@ -3,7 +3,7 @@ import { cn } from '@/libs/utils';
 import { Svg, SvgProps } from 'react-native-svg';
 import {
   ColorProps,
-  TEXT_COLORS,
+  // TEXT_COLORS,
   SizeProps,
   isDarkTheme,
 } from '@/components/theme';
