@@ -6,6 +6,8 @@ import { IconButton } from '@/components/ui/icon-button';
 import { Play as PlayIcon } from '@/components/icons/play';
 import { Pause as PauseIcon } from '@/components/icons/pause';
 import { Text } from '@/components/ui/text';
+import { RotateCcw as RotateCcwIcon } from '../icons/rotate-ccw';
+import { RotateCw as RotateCwIcon } from '../icons/rotate-cw';
 
 function formatTime(time: number) {
   if (!time) return '00:00';
@@ -21,24 +23,20 @@ const DEFAULT_SLIDER_PROPS = {
   minimumTrackTintColor: '#3b82f6',
   maximumTrackTintColor: '#6c6c74',
   thumbTintColor: '#3b82f6',
-  style: {
-    marginLeft: -16,
-    marginRight: -8,
-    height: 26,
-  },
 };
+
+const DEFAULT_SKIP_TIME = 10;
 
 type AudioPlayerProps = {
   source: string;
   title?: string;
   mode?: 'classic' | 'mini';
-  onClick?: () => void;
   className?: string;
 };
 
 export const AudioPlayer: React.FC<AudioPlayerProps> = ({
   source,
-  title = 'Sample Audio',
+  title = 'Sample Title',
   mode = 'mini',
   ...props
 }) => {
@@ -46,24 +44,26 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const [position, setPosition] = useState(0);
   const [duration, setDuration] = useState(0);
-  const { style, onClick } = props as any;
+  const { style } = props as any;
 
   const play = async () => await audio.playAsync();
   const pause = async () => await audio.pauseAsync();
 
-  const skipForward = async (seconds: number) => {
+  const skipForward = async (seconds: number = DEFAULT_SKIP_TIME) => {
     const status: any = await audio.getStatusAsync();
     const newPosition = Math.min(
       status.positionMillis + seconds * 1000,
       status.durationMillis,
     );
     await audio.setPositionAsync(newPosition);
+    setPosition(newPosition);
   };
 
-  const skipBackward = async (seconds: number) => {
+  const skipBackward = async (seconds: number = DEFAULT_SKIP_TIME) => {
     const status = await audio.getStatusAsync();
     const newPosition = Math.max(status.positionMillis - seconds * 1000, 0);
     await audio.setPositionAsync(newPosition);
+    setPosition(newPosition);
   };
 
   const seekToPosition = async (value: number) => {
@@ -81,19 +81,29 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
   useEffect(() => {
     if (!source) return;
 
+    let removeAudio = new Audio.Sound();
+
     const loadAudio = async () => {
       try {
         const { sound, status }: any = await Audio.Sound.createAsync(
           { uri: source },
           { shouldPlay: false },
         );
+        removeAudio = sound;
         setAudio(sound);
         setDuration(status.durationMillis);
       } catch (error) {
-        console.error('An error occurred: ', error);
+        console.error('[AUDIO_PLAYER][LOAD_AUDIO]', error);
       }
     };
     loadAudio();
+
+    return () => {
+      if (removeAudio) {
+        removeAudio.stopAsync();
+        removeAudio.unloadAsync();
+      }
+    };
   }, []);
 
   useEffect(() => {
@@ -134,6 +144,11 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
         </View>
         <Slider
           {...DEFAULT_SLIDER_PROPS}
+          style={{
+            marginLeft: -16,
+            marginRight: -8,
+            height: 26,
+          }}
           maximumValue={duration}
           value={position}
           onValueChange={seekToPosition}
@@ -143,28 +158,52 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
   }
 
   return (
-    <View>
-      {/* <Button
-         title={isPlaying ? 'Pause' : 'Play'}
-         onPress={() => {
-           isPlaying ? pause() : play();
-           setIsPlaying(!isPlaying);
-         }}
-       />
-       <Button title="Skip Forward 10s" onPress={() => skipForward(10)} />
-       <Button title="Skip Backward 10s" onPress={() => skipBackward(10)} /> */}
-      <Text>position: {formatTime(position / 1000)}</Text>
-      <Text>Duration: {formatTime(duration / 1000)}</Text>
-
-      <Slider
-        minimumValue={0}
-        maximumValue={duration}
-        value={position}
-        minimumTrackTintColor="#1EB1FC"
-        maximumTrackTintColor="#8B8B8B"
-        thumbTintColor="#1EB1FC"
-        onValueChange={seekToPosition}
-      />
+    <View className="w-full" style={style}>
+      <View className="w-full">
+        <Slider
+          {...DEFAULT_SLIDER_PROPS}
+          style={{
+            marginLeft: -12,
+            marginRight: -12,
+          }}
+          maximumValue={duration}
+          value={position}
+          onValueChange={seekToPosition}
+        />
+        <View className="flex flex-row justify-between px-1">
+          <Text>{formatTime(position)}</Text>
+          <View className="flex flex-row space-x-4 items-center">
+            <IconButton
+              isRounded
+              color="transparent"
+              variant="solid"
+              icon={<RotateCcwIcon size="xs" />}
+              onPress={() => skipBackward()}
+            />
+            <IconButton
+              isRounded
+              color="transparent"
+              variant="solid"
+              size="lg"
+              icon={
+                isPlaying ? <PauseIcon size="lg" /> : <PlayIcon size="lg" />
+              }
+              onPress={() => {
+                isPlaying ? pause() : play();
+                setIsPlaying(!isPlaying);
+              }}
+            />
+            <IconButton
+              isRounded
+              color="transparent"
+              variant="solid"
+              icon={<RotateCwIcon size="xs" />}
+              onPress={() => skipForward()}
+            />
+          </View>
+          <Text>{formatTime(duration)}</Text>
+        </View>
+      </View>
     </View>
   );
 };

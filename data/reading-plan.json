@@ -7,7 +7,7 @@
     "devotional": {
       "title": "La torpeza humana",
       "author": "Ps. Wilson Chávez",
-      "audioSource": "https://wiwwzozqlowojgwbllns.supabase.co/storage/v1/object/sign/audios/2024-09-19/devocional.mp3?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJhdWRpb3MvMjAyNC0wOS0xOS9kZXZvY2lvbmFsLm1wMyIsImlhdCI6MTcyNjcyMTgzNCwiZXhwIjoxNzU4MjU3ODM0fQ.iHM2O1AHkdDfPnGq_x6lAs7ESOtCCn12Vlox4OwTXZ4&t=2024-09-19T04%3A57%3A15.019Z",
+      "audioSource": "https://file-examples.com/storage/fe36b23e6a66fc0679c1f86/2017/11/file_example_MP3_700KB.mp3",
       "verse": "Salmos 49:20",
       "content": null
     },
@@ -118,7 +118,7 @@
         }
       ],
       "chapter": 14,
-      "audioSource": "https://wiwwzozqlowojgwbllns.supabase.co/storage/v1/object/sign/audios/2024-09-19/biblia.mp3?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJhdWRpb3MvMjAyNC0wOS0xOS9iaWJsaWEubXAzIiwiaWF0IjoxNzI2NDUzMTg4LCJleHAiOjE3NTc5ODkxODh9.XJSk5Qvx9tbMkCJt_lqLmK-utDwbEhzUgjY3cqnL6_k&t=2024-09-16T02%3A19%3A48.050Z",
+      "audioSource": "https://cdn.pixabay.com/audio/2024/01/20/audio_bb461c7ea3.mp3",
       "version": "rv1960",
       "numChapters": 21
     }
