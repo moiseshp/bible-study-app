@@ -11,6 +11,7 @@ import { BibleText } from '@/components/ui/bible-text';
 import { AudioPlayer } from '@/components/ui/audio-player';
 import { GradientBox } from '@/components/ui/gradient-box';
 import Modal from 'react-native-modal';
+import Questions from './questions';
 
 type BibleBookStudyProps = {
   data: any;
@@ -19,6 +20,7 @@ type BibleBookStudyProps = {
 export default function BibleBookStudy({ data }: BibleBookStudyProps) {
   const { top } = useSafeAreaInsets();
   const [isOpen, setIsOpen] = useState(false);
+  const { questions, chapter } = data;
 
   return (
     <>
@@ -47,27 +49,28 @@ export default function BibleBookStudy({ data }: BibleBookStudyProps) {
           style={{ paddingTop: top }}
         >
           <AppBar>
-            <View>
+            <View className="flex flex-row space-x-2 items-center">
               <ThemeToggle />
+              {questions && (
+                <View>
+                  <Questions data={questions} />
+                </View>
+              )}
             </View>
-            <View>
-              <IconButton
-                isRounded
-                icon={<CloseIcon />}
-                onPress={() => setIsOpen(false)}
-              />
-            </View>
+            <IconButton
+              isRounded
+              icon={<CloseIcon />}
+              onPress={() => setIsOpen(false)}
+            />
           </AppBar>
           <ScrollView className="p-6" showsVerticalScrollIndicator={false}>
-            {data.book && <BibleText data={data} />}
+            {chapter.book && <BibleText data={chapter} />}
             <View className="h-40" />
           </ScrollView>
-          {data.audioSource && (
-            <>
-              <GradientBox className="absolute bottom-0 w-full h-40 px-6 pb-6 flex flex-row items-end">
-                <AudioPlayer source={data.audioSource} mode="classic" />
-              </GradientBox>
-            </>
+          {chapter.audioSource && (
+            <GradientBox className="absolute bottom-0 w-full h-40 px-6 pb-6 flex flex-row items-end">
+              <AudioPlayer source={chapter.audioSource} mode="classic" />
+            </GradientBox>
           )}
         </View>
       </Modal>

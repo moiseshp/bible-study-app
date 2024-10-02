@@ -57,7 +57,7 @@ export default function App() {
                   {data.chapter.chapter && <BibleText data={data.chapter} />}
                 </View>
                 <GradientBox className="flex h-32 -mt-32 flex-row items-end">
-                  <BibleBookStudy data={data.chapter} />
+                  <BibleBookStudy data={data} />
                 </GradientBox>
               </View>
 
