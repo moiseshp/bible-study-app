@@ -1,3 +1,4 @@
+// Deprecated for use use-store hook and zustand
 import { useState, useEffect } from 'react';
 import { useColorScheme } from 'nativewind';
 import AsyncStorage from '@react-native-async-storage/async-storage';

@@ -1,19 +1,28 @@
 import { Fragment } from 'react';
-import { View } from 'react-native';
 import { Text } from '@/components/ui/text';
+
+const DEFAULT_STYLES = {
+  fontSize: 16,
+};
 
 type BibleTextProps = {
   data: any;
+  styles?: {
+    fontSize: number;
+  };
 };
 
-export const BibleText: React.FC<BibleTextProps> = ({ data }) => {
+export const BibleText: React.FC<BibleTextProps> = ({
+  data,
+  styles = DEFAULT_STYLES,
+}) => {
   return (
     <>
       <Text className="mb-1 text-2xl font-afacad-bold uppercase">
         {data.book}
       </Text>
       <Text className="text-6xl font-afacad-bold">{data.chapter}</Text>
-      <Text className="text-lg">
+      <Text style={styles}>
         {data.verses.map((item: any) => (
           <Fragment key={item.number}>
             {item.study && (

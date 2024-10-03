@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { ScrollView, View } from 'react-native';
-import { useStorageLoader } from '@/hooks/use-storage-loader';
 import { Text } from '@/components/ui/text';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { BottomNavigation } from '@/views/home/components/bottom-navigation';
@@ -16,14 +15,15 @@ import { BibleText } from '@/components/ui/bible-text';
 import { GradientBox } from '@/components/ui/gradient-box';
 import readingPlan from '@/data/reading-plan.json';
 import BibleBookStudy from './views/home/bible-book-study';
+import { useThemeLoader } from './hooks/use-theme-loader';
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-  const isStorageLoaded = useStorageLoader();
+  const isThemeLoaded = useThemeLoader();
   const isFontsLoaded = useFontsLoader();
   const data = readingPlan.data;
-  const isAppReady = isStorageLoaded && isFontsLoaded && data;
+  const isAppReady = isThemeLoaded && isFontsLoaded && data;
 
   const handleLayout = useCallback(async () => {
     if (isAppReady) {

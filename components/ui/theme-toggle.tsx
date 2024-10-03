@@ -2,16 +2,15 @@ import { useColorScheme } from 'nativewind';
 import { IconButton } from '@/components/ui/icon-button';
 import { Moon as MoonIcon } from '@/components/icons/moon';
 import { Sun as SunIcon } from '@/components/icons/sun';
-import { STORAGE_KEY } from '@/hooks/use-storage-loader';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import useStore from '@/hooks/use-store';
 
 export const ThemeToggle = () => {
   const { colorScheme, toggleColorScheme } = useColorScheme();
+  const setTheme = useStore((state) => state.setTheme);
 
   const handleTheme = async () => {
     toggleColorScheme();
-    const theme = colorScheme === 'dark' ? 'light' : 'dark';
-    await AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify({ theme }));
+    setTheme(colorScheme === 'dark' ? 'light' : 'dark');
   };
 
   return (

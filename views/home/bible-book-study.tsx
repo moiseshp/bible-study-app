@@ -11,7 +11,9 @@ import { BibleText } from '@/components/ui/bible-text';
 import { AudioPlayer } from '@/components/ui/audio-player';
 import { GradientBox } from '@/components/ui/gradient-box';
 import Modal from 'react-native-modal';
+import useStore from '@/hooks/use-store';
 import Questions from './questions';
+import FontSettings from './font-settings';
 
 type BibleBookStudyProps = {
   data: any;
@@ -21,6 +23,7 @@ export default function BibleBookStudy({ data }: BibleBookStudyProps) {
   const { top } = useSafeAreaInsets();
   const [isOpen, setIsOpen] = useState(false);
   const { questions, chapter } = data;
+  const fontSize = useStore((state) => state.fontSize);
 
   return (
     <>
@@ -37,12 +40,6 @@ export default function BibleBookStudy({ data }: BibleBookStudyProps) {
         animationOut="slideOutDown"
         statusBarTranslucent
         className="m-0"
-        // useNativeDriverForBackdrop
-        // onBackdropPress={() => setIsOpen(false)}
-        // onSwipeComplete={() => setIsOpen(false)}
-        // backdropOpacity={0.3}
-        // swipeDirection="down"
-        // coverScreen
       >
         <View
           className="flex-1 bg-white dark:bg-zinc-900"
@@ -56,6 +53,9 @@ export default function BibleBookStudy({ data }: BibleBookStudyProps) {
                   <Questions data={questions} />
                 </View>
               )}
+              <View>
+                <FontSettings />
+              </View>
             </View>
             <IconButton
               isRounded
@@ -64,8 +64,12 @@ export default function BibleBookStudy({ data }: BibleBookStudyProps) {
             />
           </AppBar>
           <ScrollView className="p-6" showsVerticalScrollIndicator={false}>
-            {chapter.book && <BibleText data={chapter} />}
-            <View className="h-40" />
+            {chapter.book && (
+              <>
+                <BibleText data={chapter} styles={{ fontSize }} />
+                <View className="h-40" />
+              </>
+            )}
           </ScrollView>
           {chapter.audioSource && (
             <GradientBox className="absolute bottom-0 w-full h-40 px-6 pb-6 flex flex-row items-end">
