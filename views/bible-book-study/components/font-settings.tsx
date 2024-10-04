@@ -1,20 +1,25 @@
-import { MessageCircleQuestion } from '@/components/icons/message-circle-question';
+import { AArrowDown as AArrowDownIcon } from '@/components/icons/a-arrow-down';
+import { AArrowUp as AArrowUpIcon } from '@/components/icons/a-arrow-up';
+import { ALargeSmall as ALargeSmallIcon } from '@/components/icons/a-large-small';
 import { Button } from '@/components/ui/button';
 import { IconButton } from '@/components/ui/icon-button';
 import { Text } from '@/components/ui/text';
+import useStore from '@/hooks/use-store';
 import { useState } from 'react';
 import { View } from 'react-native';
 import Modal from 'react-native-modal';
 
 export default function FontSettings() {
   const [isOpen, setIsOpen] = useState(false);
+  const incrementFontSize = useStore((state) => state.incrementFontSize);
+  const decrementFontSize = useStore((state) => state.decrementFontSize);
 
   return (
     <>
       <IconButton
         isRounded
         variant="solid"
-        icon={<MessageCircleQuestion size="xs" />}
+        icon={<ALargeSmallIcon size="xs" />}
         onPress={() => setIsOpen(true)}
       />
       <Modal
@@ -35,11 +40,19 @@ export default function FontSettings() {
             Modificar tamaño del texto
           </Text>
           <View className="flex flex-row space-x-4">
-            <Button variant="solid" className="flex-1">
-              <MessageCircleQuestion />
+            <Button
+              variant="solid"
+              className="flex-1"
+              onPress={decrementFontSize}
+            >
+              <AArrowDownIcon />
             </Button>
-            <Button variant="solid" className="flex-1">
-              <MessageCircleQuestion />
+            <Button
+              variant="solid"
+              className="flex-1"
+              onPress={incrementFontSize}
+            >
+              <AArrowUpIcon />
             </Button>
           </View>
         </View>

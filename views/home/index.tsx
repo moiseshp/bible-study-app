@@ -12,6 +12,7 @@ import { DevotionalCard } from './components/devotional-card';
 import { Signature } from '@/components/ui/signature';
 import { BottomNavigation } from './components/bottom-navigation';
 import { Album as AlbumIcon } from '@/components/icons/album';
+import { toUppercaseFirstLetter } from '@/libs/string';
 
 export default function Home() {
   const [currentDate, setCurrentDate] = useState(
@@ -22,7 +23,11 @@ export default function Home() {
   });
 
   if (isLoading) {
-    return <ActivityIndicator size="large" color="red" />;
+    return (
+      <View className="flex-1 items-center justify-center">
+        <ActivityIndicator size="large" />
+      </View>
+    );
   }
 
   if (error) {
@@ -43,7 +48,9 @@ export default function Home() {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View className="px-6">
           <Text className="mb-4">
-            {getDateFromString(currentDate).format('dddd DD [de] MMM YYYY')}
+            {toUppercaseFirstLetter(
+              getDateFromString(currentDate).format('dddd DD [de] MMM YYYY'),
+            )}
           </Text>
           <View className="mb-8">
             <Text className="mb-4 border-b border-t border-zinc-700 py-3 text-xl uppercase">

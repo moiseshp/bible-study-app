@@ -8,6 +8,7 @@ import {
   getDateFromString,
   subtractSkippingSunday,
 } from '@/libs/dates';
+import { toUppercaseFirstLetter } from '@/libs/string';
 
 type BottomNavigationProps = {
   date: string;
@@ -35,7 +36,9 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({
           />
           <View className="flex flex-1  items-center justify-center text-xl font-bold">
             <Text className="">
-              {getDateFromString(date).format('ddd DD [de] MMM')}
+              {toUppercaseFirstLetter(
+                getDateFromString(date).format('ddd DD [de] MMM'),
+              )}
             </Text>
           </View>
           <IconButton
