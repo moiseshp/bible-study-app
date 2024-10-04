@@ -12,8 +12,8 @@ import { AudioPlayer } from '@/components/ui/audio-player';
 import { GradientBox } from '@/components/ui/gradient-box';
 import Modal from 'react-native-modal';
 import useStore from '@/hooks/use-store';
-import Questions from './questions';
-import FontSettings from './font-settings';
+import Questions from './components/questions';
+import FontSettings from './components/font-settings';
 
 type BibleBookStudyProps = {
   data: any;

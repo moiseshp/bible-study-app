@@ -3,11 +3,11 @@ import { ArrowRight as ArrowRightIcon } from '@/components/icons/arrow-right';
 import { ArrowLeft as ArrowLeftIcon } from '@/components/icons/arrow-left';
 import { View } from 'react-native';
 import { Text } from '@/components/ui/text';
-// import {
-//   addSkippingSunday,
-//   getDateFromString,
-//   subtractSkippingSunday,
-// } from '@/utils/dates';
+import {
+  addSkippingSunday,
+  getDateFromString,
+  subtractSkippingSunday,
+} from '@/libs/dates';
 
 type BottomNavigationProps = {
   date: string;
@@ -27,27 +27,26 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({
             isRounded
             icon={<ArrowLeftIcon />}
             className="px-8 h-full bg-transparent"
-            onPress={() => alert('ArrowLeftIcon')}
-            // onClick={() =>
-            //   onDateChange(
-            //     subtractSkippingSunday(date, 1, 'day').format('YYYY-MM-DD'),
-            //   )
-            // }
+            onPress={() =>
+              onDateChange(
+                subtractSkippingSunday(date, 1, 'day').format('YYYY-MM-DD'),
+              )
+            }
           />
           <View className="flex flex-1  items-center justify-center text-xl font-bold">
             <Text className="">
-              Jue. 19 de sep
-              {/* {getDateFromString(date).format('ddd DD [de] MMM')} */}
+              {getDateFromString(date).format('ddd DD [de] MMM')}
             </Text>
           </View>
           <IconButton
             isRounded
             icon={<ArrowRightIcon />}
             className="px-8 h-full bg-transparent"
-            onPress={() => alert('ArrowRightIcon')}
-            // onClick={() =>
-            //   onDateChange(addSkippingSunday(date, 1, 'day').format('YYYY-MM-DD'))
-            // }
+            onPress={() =>
+              onDateChange(
+                addSkippingSunday(date, 1, 'day').format('YYYY-MM-DD'),
+              )
+            }
           />
         </View>
       </View>
