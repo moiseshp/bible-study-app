@@ -11,6 +11,7 @@ import { MessageCircleQuestion as MessageCircleQuestionIcon } from '@/components
 import HTMLView from 'react-native-htmlview';
 import { isDarkTheme } from '@/components/theme';
 import { useColorScheme } from 'nativewind';
+import useStore from '@/hooks/use-store';
 
 type QuestionsProps = {
   data: any;
@@ -19,6 +20,7 @@ type QuestionsProps = {
 export default function Questions({ data }: QuestionsProps) {
   const { top } = useSafeAreaInsets();
   const [isOpen, setIsOpen] = useState(false);
+  const fontSize = useStore((state) => state.fontSize);
   const { colorScheme } = useColorScheme();
   const textColor = isDarkTheme(colorScheme) ? 'white' : 'black';
 
@@ -53,22 +55,31 @@ export default function Questions({ data }: QuestionsProps) {
             </View>
           </AppBar>
           <ScrollView
-            className="px-6 py-3"
+            className="px-6 py-0"
             showsVerticalScrollIndicator={false}
           >
             <HTMLView
-              value={data}
+              value={data.replace(/(\n|\t)/g, ' ').replace(/\s{2,}/g, ' ')}
               stylesheet={{
                 ol: {
                   margin: 0,
                   padding: 0,
                   fontFamily: 'Afacad-Regular',
-                  fontSize: 18,
+                  fontSize,
                   color: textColor,
                 },
+                li: {
+                  padding: 0,
+                  margin: 0,
+                },
                 h5: {
-                  marginBottom: 10,
+                  margin: 0,
+                  padding: 0,
                   fontFamily: 'Afacad-Bold',
+                },
+                p: {
+                  margin: 0,
+                  padding: 0,
                 },
               }}
             />

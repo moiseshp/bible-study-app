@@ -34,7 +34,7 @@ async function fetchReadingPlan(date: string) {
       author: response?.devotionalAuthor,
       // audioSource: response?.devotionalAudioSource,
       audioSource:
-        'https://file-examples.com/storage/fe36b23e6a66fc0679c1f86/2017/11/file_example_MP3_700KB.mp3',
+        'https://file-examples.com/storage/fea570b16e6703ef79e65b4/2017/11/file_example_MP3_700KB.mp3',
       verse: response?.devotionalVerse,
       content: response?.devotionalContent,
     },
@@ -45,7 +45,7 @@ async function fetchReadingPlan(date: string) {
       chapter: response?.chapterChapter,
       // audioSource: response?.chapterAudioSource,
       audioSource:
-        'https://file-examples.com/storage/fe36b23e6a66fc0679c1f86/2017/11/file_example_MP3_700KB.mp3',
+        'https://file-examples.com/storage/fea570b16e6703ef79e65b4/2017/11/file_example_MP3_700KB.mp3',
       version: response?.chapterVersion,
       numChapters: response?.chapterNumChapters,
     },
