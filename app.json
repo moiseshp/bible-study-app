@@ -4,7 +4,10 @@
     "slug": "devocionales-lince",
     "version": "0.1.0-beta",
     "scheme": "bible-study",
-    "platforms": ["android", "ios"],
+    "platforms": [
+      "android",
+      "ios"
+    ],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -22,14 +25,22 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#18181b"
-      }
+      },
+      "package": "com.moiseshp.devocionaleslince"
     },
-    "plugins": ["expo-font"],
+    "plugins": [
+      "expo-font"
+    ],
     "experiments": {
       "tsconfigPaths": true
     },
     "updates": {
       "fallbackToCacheTimeout": 0
+    },
+    "extra": {
+      "eas": {
+        "projectId": "6699dccd-3f88-4f96-a22f-b3cc6c7c41d9"
+      }
     }
   }
 }
